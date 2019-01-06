@@ -24,16 +24,16 @@ namespace HomeSecurityAPI.Controllers
         }
         // POST api/picture
         [HttpPost]
-        public async void Post([FromBody] Picture p)
+        public async Task<IActionResult> Post([FromBody] Picture p)
         {
-            await dap.Create(p);
+            return Ok(await dap.Create(p));
         }
 
         // DELETE api/picture/objId
         [HttpDelete]
-        public async void Delete(string objId)
+        public async Task<IActionResult> Delete(string objId)
         {
-            await dap.Delete(objId);
+            return Ok(await dap.Delete(objId));
         }
     }
 }
