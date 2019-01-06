@@ -17,7 +17,7 @@ namespace HomeSecurityAPI.Controllers
         public DataAccessPictures dap = new DataAccessPictures(); 
 
         // GET api/picture/id
-        [HttpGet]
+        [HttpGet("id")]
         public async Task<List<Picture>> GetAll(int id)
         {
            return  await dap.GetAllbyUserID(id);

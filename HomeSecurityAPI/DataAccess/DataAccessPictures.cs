@@ -41,6 +41,20 @@ namespace HomeSecurityAPI.DataAccess
             var col = _db.GetCollection<Picture>("Pictures");
             await col.DeleteOneAsync(p => p.Id == ObjectId.Parse(objId));
         }
+        public async Task<List<Picture>> GetPictureByDate(DateTime date)
+        {
+            var col = _db.GetCollection<Picture>("Pictures");
+            return await col.Find(pic => pic.Timestamp == date).ToListAsync();
+        }
 
+        public async Task<List<Picture>> GetPictureByIntervallum(DateTime date1, DateTime date2)
+        {
+            var col = _db.GetCollection<Picture>("Pictures");
+            return await col.Find(pic =>
+                    pic.Timestamp >= date1
+                    &&
+                    pic.Timestamp <= date2).ToListAsync();
+        }
+        //we need pictures within certain time frames
     }
 }

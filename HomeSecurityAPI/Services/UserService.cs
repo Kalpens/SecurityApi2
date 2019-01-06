@@ -53,7 +53,6 @@ namespace HomeSecurityAPI.Services
         {
             var col = _db.GetCollection<User>("Users");
             var result = await col.Find(user => user.Username == username).SingleAsync();
-            result.Password = null;
             return result;
         }
 
@@ -87,7 +86,33 @@ namespace HomeSecurityAPI.Services
             return u;
         }
 
+        public async Task<User> Update(User u, string username)
+        {
+            var oldUser = await GetbyUsername(username);
+            BsonDocument user = new BsonDocument {
+                {"FirstName" , u.FirstName},
+                {"LastName" , u.LastName},
+                {"Username" , u.Username},
+                {"Password" , oldUser.Username}
+            };
 
+            var col = _db.GetCollection<BsonDocument>("Users");
+            FilterDefinitionBuilder<BsonDocument> builder = Builders<BsonDocument>.Filter;
+            FilterDefinition<BsonDocument> filter;
+
+            filter = builder.Eq("Username", oldUser.Username);
+            await col.ReplaceOneAsync(filter, user);
+
+            return u;
+        }
+
+
+        public async Task Delete(string username)
+        {
+            var col = _db.GetCollection<User>("Users");
+            await col.DeleteOneAsync(p => p.Username == username);
+        }
+        //neeed delete update
 
     }
 }
