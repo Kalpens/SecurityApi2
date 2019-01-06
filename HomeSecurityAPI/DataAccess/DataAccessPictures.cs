@@ -45,7 +45,7 @@ namespace HomeSecurityAPI.DataAccess
         public async Task<List<Picture>> GetPictureByDate(DateTime date)
         {
             var col = _db.GetCollection<Picture>("Pictures");
-            return await col.Find(pic => pic.Timestamp == date).ToListAsync();
+            return await col.Find(pic => pic.Timestamp.Date == date.Date).ToListAsync();
         }
 
         public async Task<List<Picture>> GetPictureByIntervallum(DateTime date1, DateTime date2)

@@ -27,13 +27,13 @@ namespace HomeSecurityAPI.Controllers
 
         }
         //GET api/user
-        [HttpGet("{username}")]
+        [HttpGet("username")]
         public async Task<IActionResult> GetUserByUsername(string username)
         {
             return Ok(await _userService.GetbyUsername(username));
         }
 
-        //POST api/user
+        //PUT api/user
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] List<User> uList)
         {

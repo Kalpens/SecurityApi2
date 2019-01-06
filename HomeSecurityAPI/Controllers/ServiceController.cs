@@ -16,7 +16,7 @@ namespace HomeSecurityAPI.Controllers
         public DataAccessPictures dap = new DataAccessPictures();
 
         // GET api/service/date
-        [HttpGet("{date}")]
+        [HttpGet]
         public async Task<List<Picture>> GetByDate(DateTime date)
         {
             return await dap.GetPictureByDate(date);
