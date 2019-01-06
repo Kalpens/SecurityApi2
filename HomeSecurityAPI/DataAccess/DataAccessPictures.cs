@@ -39,10 +39,13 @@ namespace HomeSecurityAPI.DataAccess
             
         }
 
-        public async Task Delete(string objId)
+        public async Task<Boolean> Delete(string objId)
         {
             var col = _db.GetCollection<Picture>("Pictures");
-            await col.DeleteOneAsync(p => p.Id == ObjectId.Parse(objId));
+            var result = await col.DeleteOneAsync(p => p.Id == ObjectId.Parse(objId));
+            if (result.DeletedCount >= 1)
+                return true;
+            return false;
         }
         public async Task<List<Picture>> GetPictureByDate(DateTime date)
         {

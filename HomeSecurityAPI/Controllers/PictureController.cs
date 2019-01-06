@@ -31,9 +31,9 @@ namespace HomeSecurityAPI.Controllers
 
         // DELETE api/picture/objId
         [HttpDelete]
-        public async void Delete(string objId)
+        public async Task<IActionResult> Delete(string objId)
         {
-            await dap.Delete(objId);
+            return Ok(await dap.Delete(objId));
         }
     }
 }
