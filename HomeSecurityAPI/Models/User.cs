@@ -9,7 +9,7 @@ namespace HomeSecurityAPI.Models
 {
     public class User
     {
-        
+        [BsonId]
         public ObjectId Id { get; set; }
         [BsonElement("FirstName")]
         public string FirstName { get; set; }

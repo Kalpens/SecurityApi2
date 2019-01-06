@@ -24,9 +24,9 @@ namespace HomeSecurityAPI.Controllers
         }
         // POST api/picture
         [HttpPost]
-        public async void Post([FromBody] Picture p)
+        public async Task<IActionResult> Post([FromBody] Picture p)
         {
-            await dap.Create(p);
+            return Ok(await dap.Create(p));
         }
 
         // DELETE api/picture/objId

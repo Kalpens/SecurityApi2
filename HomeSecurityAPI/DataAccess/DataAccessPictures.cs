@@ -25,8 +25,10 @@ namespace HomeSecurityAPI.DataAccess
                 {"Base64" , p.Base64},
                 {"Timestamp" , DateTime.Now }
             };
+            p.Timestamp = DateTime.Now;
             var collection = _db.GetCollection<BsonDocument>("Pictures");
             await collection.InsertOneAsync(picture);
+            p.Id = picture[0].AsObjectId;
             return p;
         }
 

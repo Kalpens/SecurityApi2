@@ -9,6 +9,7 @@ namespace HomeSecurityAPI.Models
 {
     public class Picture
     {
+        [BsonId]
         public ObjectId Id { get; set; }
         [BsonElement("userID")]
         public int userID { get; set; }
