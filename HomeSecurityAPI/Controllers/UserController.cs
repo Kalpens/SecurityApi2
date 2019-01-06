@@ -33,11 +33,11 @@ namespace HomeSecurityAPI.Controllers
             return Ok(await _userService.GetbyUsername(username));
         }
 
-        //POST api/user
-        [HttpPost]
-        public async Task<IActionResult> Update([FromBody] User u, string unique)
+        //POST api/user/uname
+        [HttpPost("uname")]
+        public async Task<IActionResult> Update([FromBody] User u, string uname)
         {
-            return Ok(await _userService.Update(u, unique));
+            return Ok(await _userService.Update(u, uname));
         }
 
         //DELETE api/user/username

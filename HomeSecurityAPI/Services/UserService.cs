@@ -44,8 +44,6 @@ namespace HomeSecurityAPI.Services
             var result = hasher.VerifyHashedPassword(u, user.Password, u.Password);
             if (result == PasswordVerificationResult.Failed) throw new AuthenticationException("User failed to log in");
 
-
-            // redo by https://github.com/EASV/CSharpCleanRestWithEFCore2018/blob/master/EASV.CustomerRestApi/Controllers/AccountController.cs
             return user;
         }
 
