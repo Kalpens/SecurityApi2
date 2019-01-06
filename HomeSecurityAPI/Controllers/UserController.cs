@@ -34,17 +34,17 @@ namespace HomeSecurityAPI.Controllers
         }
 
         //POST api/user
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] List<User> uList)
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] List<User> uList)
         {
             return Ok(await _userService.Update(uList));
         }
 
         //DELETE api/user/username
         [HttpDelete]
-        public async Task<IActionResult> DeleteUserByUsername()
+        public async Task<IActionResult> DeleteUserByUsername(string username)
         {
-            return Ok(await _userService.Delete("asdlol"));
+            return Ok(await _userService.Delete(username));
         }
     }
 }
