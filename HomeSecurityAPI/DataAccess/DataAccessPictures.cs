@@ -22,7 +22,8 @@ namespace HomeSecurityAPI.DataAccess
         {
             BsonDocument picture = new BsonDocument {
                 {"userID" , p.userID },
-                {"Base64" , p.Base64}
+                {"Base64" , p.Base64},
+                {"Timestamp" , DateTime.Now }
             };
             var collection = _db.GetCollection<BsonDocument>("Pictures");
             await collection.InsertOneAsync(picture);

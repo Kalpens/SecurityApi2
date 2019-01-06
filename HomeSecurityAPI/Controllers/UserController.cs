@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace HomeSecurityAPI.Controllers
 {
-    [Authorize]
+    
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -33,18 +33,18 @@ namespace HomeSecurityAPI.Controllers
             return Ok(await _userService.GetbyUsername(username));
         }
 
-        //POST api/user/uname
-        [HttpPost("uname")]
-        public async Task<IActionResult> Update([FromBody] User u, string uname)
+        //POST api/user
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] List<User> uList)
         {
-            return Ok(await _userService.Update(u, uname));
+            return Ok(await _userService.Update(uList));
         }
 
         //DELETE api/user/username
-        [HttpDelete("{username}")]
-        public async void DeleteUserByUsername(string username)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUserByUsername()
         {
-            await _userService.Delete(username);
+            return Ok(await _userService.Delete("asdlol"));
         }
     }
 }

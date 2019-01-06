@@ -59,11 +59,6 @@ namespace HomeSecurityAPI.Services
             var col = _db.GetCollection<User>("Users");
             var lst = await col.Find(_ => true).ToListAsync();
 
-            foreach (User u in lst)
-            {
-                u.Password = null;
-            }
-
             return lst;
         }
 
@@ -84,14 +79,16 @@ namespace HomeSecurityAPI.Services
             return u;
         }
 
-        public async Task<User> Update(User u, string username)
+        public async Task<User> Update(List<User> u)
         {
-            var oldUser = await GetbyUsername(username);
+            var oldUser = u.ElementAt(0);
+            var newUser = u.ElementAt(1);
+
             BsonDocument user = new BsonDocument {
-                {"FirstName" , u.FirstName},
-                {"LastName" , u.LastName},
-                {"Username" , u.Username},
-                {"Password" , oldUser.Username}
+                {"FirstName" , newUser.FirstName},
+                {"LastName" , newUser.LastName},
+                {"Username" , newUser.Username},
+                {"Password" , oldUser.Password}
             };
 
             var col = _db.GetCollection<BsonDocument>("Users");
@@ -101,14 +98,22 @@ namespace HomeSecurityAPI.Services
             filter = builder.Eq("Username", oldUser.Username);
             await col.ReplaceOneAsync(filter, user);
 
-            return u;
+            return newUser;
         }
 
 
-        public async Task Delete(string username)
+        public async Task<Boolean> Delete(string username)
         {
             var col = _db.GetCollection<User>("Users");
-            await col.DeleteOneAsync(p => p.Username == username);
+            var result = await col.DeleteOneAsync(p => p.Username == username);
+            if (result.DeletedCount == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         //neeed delete update
 
