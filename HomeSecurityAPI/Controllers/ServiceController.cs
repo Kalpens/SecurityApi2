@@ -19,6 +19,7 @@ namespace HomeSecurityAPI.Controllers
         [HttpGet]
         public async Task<List<Picture>> GetByDate(string stringDate)
         {
+            //Works with this format "YYYY-MM-DD, h:mm:ss a"
             DateTime date = DateTime.Parse(stringDate, null);
             return await dap.GetPicturesByDate(date);
         }
@@ -27,6 +28,7 @@ namespace HomeSecurityAPI.Controllers
         [HttpPost]
         public async Task<List<Picture>> RequestByDate(string stringDate1, string stringDate2)
         {
+            //Works with this format "YYYY-MM-DD, h:mm:ss a"
             DateTime date1 = Convert.ToDateTime(stringDate1);
             DateTime date2 = Convert.ToDateTime(stringDate2);
             return await dap.GetPictureByIntervallum(date1, date2);
