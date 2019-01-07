@@ -20,12 +20,14 @@ namespace HomeSecurityAPI.DataAccess
 
         public async Task<Picture> Create(Picture p)
         {
+            var dateTime = DateTime.Now;
+            dateTime = dateTime.ToUniversalTime();
             BsonDocument picture = new BsonDocument {
                 {"userID" , p.userID },
                 {"Base64" , p.Base64},
-                {"Timestamp" , DateTime.Now }
+                {"Timestamp" , dateTime }
             };
-            p.Timestamp = DateTime.Now;
+            p.Timestamp = dateTime;
             var collection = _db.GetCollection<BsonDocument>("Pictures");
             await collection.InsertOneAsync(picture);
             p.Id = picture[0].AsObjectId;

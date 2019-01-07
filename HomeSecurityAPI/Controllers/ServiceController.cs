@@ -17,15 +17,18 @@ namespace HomeSecurityAPI.Controllers
 
         // GET api/service/date
         [HttpGet]
-        public async Task<List<Picture>> GetByDate(DateTime date)
+        public async Task<List<Picture>> GetByDate(string stringDate)
         {
+            DateTime date = DateTime.Parse(stringDate, null);
             return await dap.GetPicturesByDate(date);
         }
 
         //POST api/service
         [HttpPost]
-        public async Task<List<Picture>> RequestByDate(DateTime date1, DateTime date2)
+        public async Task<List<Picture>> RequestByDate(string stringDate1, string stringDate2)
         {
+            DateTime date1 = Convert.ToDateTime(stringDate1);
+            DateTime date2 = Convert.ToDateTime(stringDate2);
             return await dap.GetPictureByIntervallum(date1, date2);
         }
     }
