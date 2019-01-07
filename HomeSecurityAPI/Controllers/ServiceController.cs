@@ -19,7 +19,7 @@ namespace HomeSecurityAPI.Controllers
         [HttpGet]
         public async Task<List<Picture>> GetByDate(DateTime date)
         {
-            return await dap.GetPictureByDate(date);
+            return await dap.GetPicturesByDate(date);
         }
 
         //POST api/service

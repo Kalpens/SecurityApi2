@@ -47,10 +47,12 @@ namespace HomeSecurityAPI.DataAccess
                 return true;
             return false;
         }
-        public async Task<List<Picture>> GetPictureByDate(DateTime date)
+        public async Task<List<Picture>> GetPicturesByDate(DateTime date)
         {
+            var dateStart = date.Date;
+            var dateEnd = date.Date.AddDays(1);
             var col = _db.GetCollection<Picture>("Pictures");
-            return await col.Find(pic => pic.Timestamp.Date == date.Date).ToListAsync();
+            return await col.Find(pic => pic.Timestamp >= dateStart && pic.Timestamp <= dateEnd).ToListAsync();
         }
 
         public async Task<List<Picture>> GetPictureByIntervallum(DateTime date1, DateTime date2)
