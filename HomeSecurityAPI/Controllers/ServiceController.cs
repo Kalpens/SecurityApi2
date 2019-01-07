@@ -29,7 +29,7 @@ namespace HomeSecurityAPI.Controllers
         {
             DateTime date1 = Convert.ToDateTime(stringDate1);
             DateTime date2 = Convert.ToDateTime(stringDate2);
-            return await dap.GetPictureByIntervallum(date1, date2);
+            return await dap.GetPictureByInterval(date1, date2);
         }
     }
 }
