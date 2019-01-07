@@ -57,7 +57,7 @@ namespace HomeSecurityAPI.DataAccess
             return await col.Find(pic => pic.Timestamp >= dateStart && pic.Timestamp <= dateEnd).ToListAsync();
         }
 
-        public async Task<List<Picture>> GetPictureByIntervallum(DateTime date1, DateTime date2)
+        public async Task<List<Picture>> GetPictureByInterval(DateTime date1, DateTime date2)
         {
             var col = _db.GetCollection<Picture>("Pictures");
             return await col.Find(pic =>
