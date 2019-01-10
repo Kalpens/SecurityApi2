@@ -17,6 +17,7 @@ namespace HomeSecurityAPI.Models
         public string Base64 { get; set; }
         [BsonElement("Timestamp")]
         public DateTime Timestamp { get; set; }
-        // need timestamp
+        [BsonElement("PictureName")]
+        public string PictureName { get; set; }
     }
 }
