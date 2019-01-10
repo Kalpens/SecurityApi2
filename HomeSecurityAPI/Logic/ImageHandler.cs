@@ -29,7 +29,7 @@ namespace HomeSecurityAPI.Logic
 
         public void StoreImage(Image<Rgba32> image, string fileName)
         {
-                image.Save("wwwroot/Images/" + fileName + ".jpg");
+                image.Save("wwwroot/Images/" + fileName);
         }
     }
 }

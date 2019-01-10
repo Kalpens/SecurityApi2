@@ -36,7 +36,7 @@ namespace HomeSecurityAPI.DataAccess
             await collection.InsertOneAsync(picture);
             p.Id = picture[0].AsObjectId;
 
-            p.PictureName = p.Timestamp.ToString("dd-MM-yyyy--") + p.Id;
+            p.PictureName = p.Timestamp.ToString("dd-MM-yyyy--") + p.Id+".jpg";
             imageHandler.ConvertAndStore(p.Base64, p.PictureName);
             var updateResult = await Update(p);
 
