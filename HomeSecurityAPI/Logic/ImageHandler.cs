@@ -18,8 +18,13 @@ namespace HomeSecurityAPI.Logic
         }
         public Image<Rgba32> ConverToImage(string base64)
         {
-            string[] base64HeaderSplit = base64.Split(',');
-            byte[] bytes = Convert.FromBase64String(base64HeaderSplit[1]);
+            if (base64.Contains(','))
+            {
+                string[] base64HeaderSplit = base64.Split(',');
+                base64 = base64HeaderSplit[1];
+            }
+
+            byte[] bytes = Convert.FromBase64String(base64);
 
             Image<Rgba32> image;
             image = Image.Load(bytes);
