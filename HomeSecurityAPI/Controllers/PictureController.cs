@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HomeSecurityAPI.DataAccess;
 using HomeSecurityAPI.Models;
+using HomeSecurityAPI.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,8 @@ namespace HomeSecurityAPI.Controllers
     {
         private DataAccessPictures dap = new DataAccessPictures();
         private readonly IHostingEnvironment hostingEnv;
-        private const string pictruFolder = "Images";
+        private const string pictureFolder = "Images";
+        private MqttService mqttService = new MqttService();
 
         public PictureController(IHostingEnvironment hostingEnv)
         {
@@ -41,7 +43,7 @@ namespace HomeSecurityAPI.Controllers
         [Route("Get")]
         public ActionResult Get(string pictureName)
         {
-            var path = Path.Combine(hostingEnv.WebRootPath, pictruFolder, pictureName);
+            var path = Path.Combine(hostingEnv.WebRootPath, pictureFolder, pictureName);
             return PhysicalFile(path, "image/jpeg");
         }
 
@@ -50,6 +52,7 @@ namespace HomeSecurityAPI.Controllers
         public async Task<IActionResult> Post([FromBody] Picture p)
         {
             var response = await dap.Create(p);
+            await mqttService.sendTakenPictureName(p.PictureName);
             return Ok(response);
         }
 
