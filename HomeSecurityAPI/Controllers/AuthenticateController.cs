@@ -37,7 +37,7 @@ namespace HomeSecurityAPI.Controllers
         
         //POST api/authenticate
         [HttpPost]
-        public async Task<ActionResult<string>> Authenticate([FromBody]User u)
+        public async Task<ActionResult<User>> Authenticate([FromBody]User u)
         {
             try
             {
@@ -50,7 +50,9 @@ namespace HomeSecurityAPI.Controllers
                 if (user == null)
                     return BadRequest(new { message = "Username or password is incorrect" });
                 var token = _tokenService.GenerateJwtToken(user);
-            return Ok(token);
+                u.Password = "";
+                u.Token = token;
+            return Ok(u);
             }
             catch (Exception e)
             {
